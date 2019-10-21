@@ -12,6 +12,5 @@ import ILogger from "../iLogger";
  */
 export default (logger: ILogger) => (error: Error, socket: Socket) => {
   // TODO: Need to be implemented
-  console.log("XD");
   socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
 };

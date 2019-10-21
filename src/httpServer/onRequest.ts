@@ -7,17 +7,23 @@ import Response from "../response";
 /**
  * Emitted each time there is a request.
  */
-export default (logger: ILogger, endpoints: IEndpoint[]) => async (
+export default (logger: ILogger, endpoints: IEndpoint[]) => async function a(
+  this: any,
   httpRequest: IncomingMessage,
   response: ServerResponse,
-): Promise<void> => {
-  const resp = await dispatch(httpRequest, endpoints);
-  if (resp) {
-    response.writeHead(resp.status, resp.headers);
-    response.end(resp.body);
-  } else {
-    response.writeHead(400, { "Content-Type": "text/plain" });
-    response.end("Not found");
+): Promise<void> {
+  try {
+    const resp = await dispatch(httpRequest, endpoints);
+
+    if (resp) {
+      response.writeHead(resp.status, resp.headers);
+      response.end(resp.body);
+    } else {
+      response.writeHead(400, { "Content-Type": "text/plain" });
+      response.end("Not found");
+    }
+  } catch (error) {
+    this.emit("error", error, response);
   }
 };
 
