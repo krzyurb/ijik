@@ -1,7 +1,5 @@
-import { App } from "../../src/index";
-import Response from "../../src/response";
+import bebop, { Response, HTTPMethods } from "../../src/index";
 import HelloController from "./helloController";
-import { HTTPMethods } from "../../src/constraints";
 
 const config = { appName: "Example app", port: 3001 };
 
@@ -13,4 +11,4 @@ const endpoint2 = {
   perform: () => Response.success("ok"),
 };
 
-export default new App(config, [endpoint1, endpoint2]);
+export default bebop(config, [endpoint1, endpoint2]);

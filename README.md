@@ -23,14 +23,14 @@ const { App } = require('bebop');
 const config = { appName: 'myJsApp', port: 3003 };
 
 // endpoint definition
-const helloEndpoint = {
+const endpoint = {
   method: 'get',
   path: '/hello',
   perform: () => ({ status: 200, body: 'Hello world!' }),
 };
 
 // create application
-const app = new App(config, [helloEndpoint]);
+const app = new App(config, [endpoint]);
 
 // run server
 app.listen();
@@ -39,7 +39,7 @@ app.listen();
 ### Typescript
 
 ```ts
-import { App, Response, HTTPMethods } from "bebop";
+import bebop, { Response, HTTPMethods } from "bebop";
 
 // basic server config
 const config = { appName: "myTsApp", port: 3003 };
@@ -52,7 +52,7 @@ const endpoint = {
 };
 
 // create application
-const app = new App(config, [endpoint]);
+const app = bebop(config, [endpoint]);
 
 // run server
 app.listen();
