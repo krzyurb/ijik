@@ -34,7 +34,7 @@ async function performEndpoint(
   const request = await buildRequest(httpRequest, endpoint);
   const resp = await endpoint.perform(request);
   if (resp) {
-    response.writeHead(resp.status, resp.headers);
+    response.writeHead(resp.status || 200, resp.headers || {});
     response.end(resp.body);
   } else {
     response.writeHead(200, { "Content-Type": "text/plain" });
