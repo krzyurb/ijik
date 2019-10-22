@@ -5,5 +5,5 @@ import { HTTPMethods } from "./constraints";
 export default interface IEndpoint {
   path: string;
   method: HTTPMethods;
-  perform(request: Request): Promise<Response> | Response;
+  perform(request: Request): Promise<Response | void> | Response | void;
 }
