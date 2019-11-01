@@ -47,8 +47,8 @@ function dispatch(
   endpoints: IEndpoint[],
 ): IEndpoint | null {
   for (const endpoint of endpoints) {
-    const pathParams = endpoint.path.match(/:(\w+|\d+|_+)/g);
-    const endpointUrl = endpoint.path.replace(/:\w+|\d+|_+/g, "([^\\/]+)");
+    const pathParams = endpoint.config.path.match(/:(\w+|\d+|_+)/g);
+    const endpointUrl = endpoint.config.path.replace(/:\w+|\d+|_+/g, "([^\\/]+)");
     const matches = new RegExp(`^${endpointUrl}$`, "g").exec(httpRequest.url || "");
     if (matches) {
       return endpoint;
@@ -60,8 +60,8 @@ function dispatch(
 
 async function buildRequest(httpRequest: IncomingMessage, endpoint: IEndpoint): Promise<Request> {
   let params = {};
-  const pathParams = endpoint.path.match(/:(\w+|\d+|_+)/g);
-  const endpointUrl = endpoint.path.replace(/:\w+|\d+|_+/g, "([^\\/]+)");
+  const pathParams = endpoint.config.path.match(/:(\w+|\d+|_+)/g);
+  const endpointUrl = endpoint.config.path.replace(/:\w+|\d+|_+/g, "([^\\/]+)");
   const matches = new RegExp(`^${endpointUrl}$`, "g").exec(httpRequest.url || "");
   if (matches && pathParams) {
     const values = matches.slice(1, pathParams.length + 1);

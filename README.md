@@ -24,8 +24,10 @@ const config = { appName: 'myJsApp', port: 3003 };
 
 // endpoint definition
 const endpoint = {
-  method: 'get',
-  path: '/hello',
+  config: {
+    method: 'get',
+    path: '/hello',
+  },
   perform: () => ({ status: 200, body: 'Hello world!' }),
 };
 
@@ -46,8 +48,10 @@ const config = { appName: "myTsApp", port: 3003 };
 
 // endpoint definition
 const endpoint = {
-  path: "/hello",
-  method: HTTPMethods.GET,
+  config: {
+    path: "/hello",
+    method: HTTPMethods.GET,
+  },
   perform: () => Response.success("Hello world!"),
 };
 

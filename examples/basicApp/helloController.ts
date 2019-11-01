@@ -1,4 +1,4 @@
-import { Request, Response, Controller, HTTPMethods } from "../../src";
+import { Request, Response, Controller, HTTPMethods } from "../../src/index";
 
 export default class HelloController extends Controller {
   constructor() {

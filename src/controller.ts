@@ -4,7 +4,11 @@ import Response from "./response";
 import { HTTPMethods } from "./constraints";
 
 export default abstract class Controller implements IEndpoint {
-  constructor(public path: string, public method: HTTPMethods) {}
+  public config: { path: string; method: HTTPMethods; };
+
+  constructor(path: string, method: HTTPMethods) {
+    this.config = { path, method };
+  }
 
   public abstract perform(request: Request): Promise<Response> | Response;
 }

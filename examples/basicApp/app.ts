@@ -10,8 +10,10 @@ const config = {
 const endpoint1 = new HelloController();
 
 const endpoint2 = {
-  path: "/health",
-  method: HTTPMethods.GET,
+  config: {
+    path: "/health",
+    method: HTTPMethods.GET,
+  },
   perform: () => Response.success("ok"),
 };
 
