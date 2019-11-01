@@ -10,7 +10,7 @@ export default class App {
 
   constructor(private config: IAppConfig, endpoints: IEndpoint[]) {
     this.logger = this.config.logger || console; // TODO: Create logger that uses any logging object
-    this.server = buildServer(this.logger, endpoints);
+    this.server = buildServer(this.logger, endpoints, config);
   }
 
   public listen(callback?: () => void) {

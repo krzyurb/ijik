@@ -4,4 +4,5 @@ export default interface IAppConfig {
   appName: string;
   port: number;
   logger?: ILogger;
+  showErrorStack?: boolean;
 }

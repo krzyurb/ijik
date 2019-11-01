@@ -1,7 +1,11 @@
 import bebop, { Response, HTTPMethods } from "../../src/index";
 import HelloController from "./helloController";
 
-const config = { appName: "Example app", port: 3001 };
+const config = {
+  appName: "Example app",
+  port: 3001,
+  showErrorStack: true,
+};
 
 const endpoint1 = new HelloController();
 
