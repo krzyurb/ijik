@@ -17,23 +17,21 @@ export default class App {
     this.server = buildServer(this.logger, endpoints, config, context);
   }
 
-  public listen(callback?: () => void) {
+  public listen(callback?: (port?: number, appName?: string) => void) {
     const { appName, port } = this.config;
     this.server.listen(port, () => {
-      this.logger.info(`${appName} app is up at ${port} port`);
       if (callback) {
-        callback();
+        callback(port, appName);
       }
     });
   }
 
-  public close(callback?: () => void) {
+  public close(callback?: (appName?: string) => void) {
     const { appName } = this.config;
 
     this.server.close(() => {
-      this.logger.info(`${appName} app is off`);
       if (callback) {
-        callback();
+        callback(appName);
       }
     });
   }
