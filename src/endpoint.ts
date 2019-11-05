@@ -3,7 +3,7 @@ import Request from "./request";
 import Response from "./response";
 import { HTTPMethods } from "./constraints";
 
-export default abstract class Controller implements IEndpoint {
+export default abstract class Endpoint implements IEndpoint {
   public config: { path: string; method: HTTPMethods; };
   public context?: object;
 

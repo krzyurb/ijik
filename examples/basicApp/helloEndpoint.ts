@@ -1,6 +1,6 @@
-import { Request, Response, Controller, HTTPMethods } from "../../src/index";
+import { Request, Response, Endpoint, HTTPMethods } from "../../src/index";
 
-export default class HelloController extends Controller {
+export default class HelloEndpoint extends Endpoint {
   constructor() {
     super("/hello/:name", HTTPMethods.GET);
   }

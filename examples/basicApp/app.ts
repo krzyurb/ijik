@@ -1,5 +1,5 @@
 import bebop, { Response, HTTPMethods } from "../../src/index";
-import HelloController from "./helloController";
+import HelloEndpoint from "./helloEndpoint";
 
 const config = {
   appName: "Example app",
@@ -7,7 +7,7 @@ const config = {
   showErrorStack: true,
 };
 
-const endpoint1 = new HelloController();
+const endpoint1 = new HelloEndpoint();
 
 const endpoint2 = {
   config: {
