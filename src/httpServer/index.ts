@@ -6,16 +6,7 @@ import onError from "./onError";
 import ILogger from "../iLogger";
 import IEndpoint from "../iEndpoint";
 import IAppConfig from "../iAppConfig";
-
-function attachContextToEndpoints(endpoints: IEndpoint[], context?: object): IEndpoint[] {
-  if (context) {
-    endpoints.forEach((endpoint) => {
-      endpoint.context = context;
-    });
-  }
-
-  return endpoints;
-}
+import attachContextToEndpoints from "./attachContextToEndpoints";
 
 export default (
   logger: ILogger,
