@@ -8,9 +8,13 @@ export default class App {
   private readonly server: Server;
   private readonly logger: any; // TODO: Define type
 
-  constructor(private config: IAppConfig, endpoints: IEndpoint[]) {
+  constructor(
+    private config: IAppConfig,
+    endpoints: IEndpoint[],
+    private context?: object,
+  ) {
     this.logger = this.config.logger || console; // TODO: Create logger that uses any logging object
-    this.server = buildServer(this.logger, endpoints, config);
+    this.server = buildServer(this.logger, endpoints, config, context);
   }
 
   public listen(callback?: () => void) {

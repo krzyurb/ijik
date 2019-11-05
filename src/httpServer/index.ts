@@ -7,9 +7,25 @@ import ILogger from "../iLogger";
 import IEndpoint from "../iEndpoint";
 import IAppConfig from "../iAppConfig";
 
-export default (logger: ILogger, endpoints: IEndpoint[], config: IAppConfig): Server => {
+function attachContextToEndpoints(endpoints: IEndpoint[], context?: object): IEndpoint[] {
+  if (context) {
+    endpoints.forEach((endpoint) => {
+      endpoint.context = context;
+    });
+  }
+
+  return endpoints;
+}
+
+export default (
+  logger: ILogger,
+  endpoints: IEndpoint[],
+  config: IAppConfig,
+  context?: object,
+): Server => {
+  const preparedEndpoints = attachContextToEndpoints(endpoints, context);
   const server = createServer()
-    .on("request", onRequest(logger, endpoints))
+    .on("request", onRequest(logger, preparedEndpoints))
     .on("error", onError(logger, config));
 
   return server;

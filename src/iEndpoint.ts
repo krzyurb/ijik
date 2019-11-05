@@ -8,5 +8,7 @@ export default interface IEndpoint {
     method: HTTPMethods,
   };
 
+  context?: object;
+
   perform(request: Request): Promise<Response | void> | Response | void;
 }

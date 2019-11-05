@@ -5,6 +5,7 @@ import { HTTPMethods } from "./constraints";
 
 export default abstract class Controller implements IEndpoint {
   public config: { path: string; method: HTTPMethods; };
+  public context?: object;
 
   constructor(path: string, method: HTTPMethods) {
     this.config = { path, method };
