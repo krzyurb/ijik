@@ -8,4 +8,9 @@ describe("Response", () => {
     expect(response.status).toEqual(HTTPStatuses.OK);
     expect(response.headers).toEqual(undefined);
   });
+
+  test("success response", () => {
+    const response = Response.success();
+    expect(response.status).toEqual(HTTPStatuses.OK);
+  });
 });

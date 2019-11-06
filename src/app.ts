@@ -19,20 +19,24 @@ export default class App {
 
   public listen(callback?: (port?: number, appName?: string) => void) {
     const { appName, port } = this.config;
-    this.server.listen(port, () => {
-      if (callback) {
-        callback(port, appName);
-      }
-    });
+    return new Promise(() =>
+      this.server.listen(port, () => {
+        if (callback) {
+          callback(port, appName);
+        }
+      }),
+    );
   }
 
   public close(callback?: (appName?: string) => void) {
     const { appName } = this.config;
 
-    this.server.close(() => {
-      if (callback) {
-        callback(appName);
-      }
-    });
+    return new Promise(() =>
+      this.server.close(() => {
+        if (callback) {
+          callback(appName);
+        }
+      }),
+    );
   }
 }
