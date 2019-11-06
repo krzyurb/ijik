@@ -3,6 +3,7 @@ import Request from "../request";
 import ILogger from "../iLogger";
 import IEndpoint from "../iEndpoint";
 import Response from "../response";
+import { HTTPMethods } from "../constraints";
 
 /**
  * Emitted each time there is a request.
@@ -73,9 +74,9 @@ async function buildRequest(httpRequest: IncomingMessage, endpoint: IEndpoint): 
 
   const rawBody = await readRequestBody(httpRequest);
   return new Request(
-    httpRequest.url,
+    httpRequest.url || "",
     rawBody,
-    httpRequest.method,
+    httpRequest.method || HTTPMethods.GET,
     params,
   );
 }
