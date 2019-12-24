@@ -2,9 +2,15 @@ import { IncomingMessage } from "http";
 import { parse } from "url";
 import { IEndpoint } from "./endpoint";
 
+export interface IRequestStorage {
+  [key: string]: any;
+}
+
 export interface IRequest extends IncomingMessage {
   query: object;
+  body?: any;
   params: object;
+  storage: IRequestStorage;
 }
 
 export function buildRequest(incomingMessage: IncomingMessage, endpoint: IEndpoint): IRequest {
@@ -18,6 +24,7 @@ export function buildRequest(incomingMessage: IncomingMessage, endpoint: IEndpoi
     {
       query,
       params,
+      storage: {},
     },
   );
 }

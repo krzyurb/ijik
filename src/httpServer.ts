@@ -18,7 +18,7 @@ export function buildHttpServer(): IApp {
     endpoints: endpoints.map((e) => e.path),
     addEndpoint(this: IApp, endpoint: IEndpoint): IApp {
       if (!endpoint.handler) {
-        throw new Error("Endpoint need to have defined .handler() method");
+        throw new Error("Endpoint need to have defined at least one middleware method");
       }
 
       endpoints.push(endpoint);
@@ -37,9 +37,23 @@ function requestHandler(endpoints: IEndpoint[]) {
     }
 
     const request = buildRequest(incomingMessage, endpoint);
+    const { handler } = endpoint;
+    const middlewaresChain = Array.isArray(handler)
+      ? handler
+      : [handler];
 
-    const handlerResult = await endpoint.handler(request);
-    const result = buildServerResponse(handlerResult);
+    const reducedChain = middlewaresChain.reduce((acc, func) => {
+      return async (req) => {
+        const res = await acc(req);
+        if (!res) {
+          return func(req);
+        }
+        return res;
+      };
+    });
+
+    const tempRes = await reducedChain(request);
+    const result = buildServerResponse(tempRes);
     response.writeHead(result.status, result.headers);
     response.end(result.body);
   };
@@ -50,11 +64,7 @@ function dispatch(endpoints: IEndpoint[], incomingMessage: IncomingMessage): IEn
     return checkPath(endpoint, incomingMessage) && checkMethod(endpoint, incomingMessage);
   });
 
-  if (result) {
-    return result;
-  }
-
-  return undefined;
+  return result;
 }
 
 function checkPath(endpoint: IEndpoint, incomingMessage: IncomingMessage): boolean {
