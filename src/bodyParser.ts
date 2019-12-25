@@ -32,6 +32,10 @@ function bodyLimitExceeded(body: string, sizeLimit?: number): boolean {
 }
 
 function parseBody(body: string, bodyType?: BodyTypes) {
+  if (body.length === 0) {
+    return {};
+  }
+
   switch (bodyType) {
     case BodyTypes.JSON:
       return JSON.parse(body);

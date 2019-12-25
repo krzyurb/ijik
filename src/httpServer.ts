@@ -1,21 +1,28 @@
 import { Server, createServer, IncomingMessage, ServerResponse } from "http";
-import { buildRequest, IRequest } from "./request";
+import { buildRequest } from "./request";
 import { buildServerResponse } from "./response";
 import { IEndpoint } from "./endpoint";
+
+const DEFAULT_SERVER_PORT = 3131;
+
+export interface IAppOptions {
+  appName?: string;
+  port?: number;
+}
 
 export interface IApp {
   server: Server;
   addEndpoint: (endpoint: IEndpoint) => any;
-  endpoints: string[];
+  listen: () => void;
 }
 
-export function buildHttpServer(): IApp {
+export function buildHttpServer(options: IAppOptions = {}): IApp {
   const endpoints: IEndpoint[] = [];
   const server = createServer(requestHandler(endpoints));
 
   return {
     server,
-    endpoints: endpoints.map((e) => e.path),
+    listen: () => server.listen(options.port || DEFAULT_SERVER_PORT),
     addEndpoint(this: IApp, endpoint: IEndpoint): IApp {
       if (!endpoint.handler) {
         throw new Error("Endpoint need to have defined at least one middleware method");
@@ -52,8 +59,8 @@ function requestHandler(endpoints: IEndpoint[]) {
       };
     });
 
-    const tempRes = await reducedChain(request);
-    const result = buildServerResponse(tempRes);
+    const chainResults = await reducedChain(request);
+    const result = buildServerResponse(chainResults);
     response.writeHead(result.status, result.headers);
     response.end(result.body);
   };
