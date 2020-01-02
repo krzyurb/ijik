@@ -1,3 +1,5 @@
 import { buildHttpServer } from "./httpServer";
 
-export { buildHttpServer };
+export default buildHttpServer;
+
+export { buildHttpServer as buildBebop };

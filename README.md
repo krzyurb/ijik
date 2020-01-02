@@ -1,6 +1,6 @@
 # Bebop
 
-Another web framework for Node.js
+Another web framework for Node.js.
 
 ## Install
 
@@ -14,51 +14,24 @@ yarn add https://github.com/krzyurb/bebop
 
 ## Usage Example
 
-### Javascript
-
 ```js
-const { App } = require('bebop');
+const { buildBebop } = require('bebop');
 
 // basic server config
-const config = { appName: 'myJsApp', port: 3003 };
-
-// endpoint definition
-const endpoint = {
-  config: {
-    method: 'get',
-    path: '/hello',
-  },
-  perform: () => ({ status: 200, body: 'Hello world!' }),
-};
+const config = { appName: 'myBebopApp', port: 3131 };
 
 // create application
-const app = new App(config, [endpoint]);
+const app = buildBebop(config);
+
+// define endpoint
+app.addEndpoint({
+  path: "/hello/:name",
+  handler: (req: IRequest) => {
+    const { params: { name } } = req;
+    return `Hello, ${name}!`;
+  },
+});
 
 // run server
 app.listen();
-```
-
-### Typescript
-
-```ts
-import bebop, { Response, HTTPMethods } from "bebop";
-
-// basic server config
-const config = { appName: "myTsApp", port: 3003 };
-
-// endpoint definition
-const endpoint = {
-  config: {
-    path: "/hello",
-    method: HTTPMethods.GET,
-  },
-  perform: () => Response.success("Hello world!"),
-};
-
-// create application
-const app = bebop(config, [endpoint]);
-
-// run server
-app.listen();
-
 ```

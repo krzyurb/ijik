@@ -1,8 +1,9 @@
 import { OutgoingHttpHeaders } from "http";
+import { HTTPStatuses } from "./httpStatuses";
 
 export interface IResponse {
-  status: number; // TODO: Should be HTTP status enum
-  headers?: OutgoingHttpHeaders; // TODO: Should be HTTP status enum
+  status: HTTPStatuses | number;
+  headers?: OutgoingHttpHeaders;
   body?: any;
 }
 
@@ -11,7 +12,7 @@ export function buildServerResponse(handlerResponse: any): IResponse {
 
   return {
     status: response.status || 200,
-    headers: { "Content-Type": "application/json", ...response.headers },
+    headers: { "Content-Type": "application/json", ...response.headers }, // TODO: Should be text if string passed
     body: JSON.stringify(response.body || handlerResponse),
   };
 }

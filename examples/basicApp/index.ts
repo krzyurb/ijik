@@ -1,23 +1,17 @@
-import { buildHttpServer } from "../../src/index";
+import bebop from "../../src/index";
 import { IRequest } from "../../src/request";
-import { bodyParser } from "../../src/bodyParser";
 
-const app = buildHttpServer({
+const app = bebop({
   port: 3131,
   appName: "example-bebop-app",
 });
 
 app.addEndpoint({
-  path: "/health",
-  handler: [
-    bodyParser(),
-    async (req: IRequest) => {
-      return {
-        status: 201,
-        body: req.body,
-      };
-    },
-  ],
+  path: "/hello/:name",
+  handler: (req: IRequest) => {
+    const { params: { name } } = req;
+    return `Hello, ${name}!`;
+  },
 });
 
 app.listen();

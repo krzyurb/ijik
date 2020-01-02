@@ -25,21 +25,19 @@ export function bodyParser(options: IBodyParserOptions = {}) {
   };
 }
 
-// Too much POST data, kill the connection!
-// 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
 function bodyLimitExceeded(body: string, sizeLimit?: number): boolean {
-  return (!!sizeLimit && body.length > sizeLimit);
+  return !!sizeLimit && body.length > sizeLimit;
+}
+
+function parseJSON(body: any): JSON {
+  return body.length !== 0 ? JSON.parse(body) : {};
 }
 
 function parseBody(body: string, bodyType?: BodyTypes) {
-  if (body.length === 0) {
-    return {};
-  }
-
   switch (bodyType) {
     case BodyTypes.JSON:
-      return JSON.parse(body);
+      return parseJSON(body);
     default:
-      return JSON.parse(body);
+      return parseJSON(body);
   }
 }

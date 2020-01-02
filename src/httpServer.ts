@@ -2,6 +2,7 @@ import { Server, createServer, IncomingMessage, ServerResponse } from "http";
 import { buildRequest } from "./request";
 import { buildServerResponse } from "./response";
 import { IEndpoint } from "./endpoint";
+import { HTTPMethods } from "./httpMethods";
 
 const DEFAULT_SERVER_PORT = 3131;
 
@@ -45,9 +46,7 @@ function requestHandler(endpoints: IEndpoint[]) {
 
     const request = buildRequest(incomingMessage, endpoint);
     const { handler } = endpoint;
-    const middlewaresChain = Array.isArray(handler)
-      ? handler
-      : [handler];
+    const middlewaresChain = Array.isArray(handler) ? handler : [handler];
 
     const reducedChain = middlewaresChain.reduce((acc, func) => {
       return async (req) => {
@@ -74,6 +73,7 @@ function dispatch(endpoints: IEndpoint[], incomingMessage: IncomingMessage): IEn
   return result;
 }
 
+// TODO: Should omit query params, e.g. "main?foo=bar" when checking path
 function checkPath(endpoint: IEndpoint, incomingMessage: IncomingMessage): boolean {
   const parsedPatch = `^${endpoint.path.replace(/:\w+|\d+|_+/g, "(\\w+|\\d+)")}/\*$`;
   const matches = new RegExp(parsedPatch).exec(incomingMessage.url || "/");
@@ -81,5 +81,7 @@ function checkPath(endpoint: IEndpoint, incomingMessage: IncomingMessage): boole
 }
 
 function checkMethod(endpoint: IEndpoint, incomingMessage: IncomingMessage): boolean {
-  return incomingMessage.method === (endpoint.method ? endpoint.method : "GET");
+  return (
+    incomingMessage.method === (endpoint.method ? endpoint.method.toUpperCase() : HTTPMethods.GET)
+  );
 }

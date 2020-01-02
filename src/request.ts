@@ -6,10 +6,10 @@ export interface IRequestStorage {
   [key: string]: any;
 }
 
-export interface IRequest extends IncomingMessage {
+export interface IRequest extends IncomingMessage {
   query: object;
   body?: any;
-  params: object;
+  params: any;
   storage: IRequestStorage;
 }
 
@@ -19,14 +19,11 @@ export function buildRequest(incomingMessage: IncomingMessage, endpoint: IEndpoi
   const params = parseParams(incomingMessage.url || "/", endpoint.path);
 
   // tslint:disable-next-line: prefer-object-spread
-  return Object.assign(
-    incomingMessage,
-    {
-      query,
-      params,
-      storage: {},
-    },
-  );
+  return Object.assign(incomingMessage, {
+    query,
+    params,
+    storage: {},
+  });
 }
 
 function parseParams(requestUrl: string, endpointPath: string): object {
