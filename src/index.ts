@@ -2,4 +2,4 @@ import { buildHttpServer } from "./httpServer";
 
 export default buildHttpServer;
 
-export { buildHttpServer as buildBebop };
+export { buildHttpServer as ijik };

@@ -1,4 +1,4 @@
-describe("bebop", () => {
+describe("ijik", () => {
   test("example", () => {
     expect(1 + 2).toBe(3);
   });

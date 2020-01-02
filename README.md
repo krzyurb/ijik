@@ -1,4 +1,4 @@
-# Bebop
+# ijik
 
 Another web framework for Node.js.
 
@@ -6,22 +6,22 @@ Another web framework for Node.js.
 
 ```bash
 # install with npm:
-npm install krzyurb/bebop
+npm install krzyurb/ijik
 
 # or with yarn:
-yarn add https://github.com/krzyurb/bebop
+yarn add https://github.com/krzyurb/ijik
 ```
 
 ## Usage Example
 
 ```js
-const { buildBebop } = require('bebop');
+const { ijik } = require('ijik');
 
 // basic server config
-const config = { appName: 'myBebopApp', port: 3131 };
+const config = { appName: 'myIjikApp', port: 3131 };
 
 // create application
-const app = buildBebop(config);
+const app = ijik(config);
 
 // define endpoint
 app.addEndpoint({
@@ -35,3 +35,11 @@ app.addEndpoint({
 // run server
 app.listen();
 ```
+
+## Name
+
+> _From Proto-Inuit *irǝ, from Proto-Eskimo *irǝ. Cognate of Greenlandic isi and Inupiaq iri._
+
+<div style="text-align: right">
+  source: <a href="https://en.wiktionary.org/wiki/%E1%90%83%E1%94%A8">wiktionary.org</a>
+</div>

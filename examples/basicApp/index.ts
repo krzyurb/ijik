@@ -1,9 +1,9 @@
-import bebop from "../../src/index";
+import ijik from "../../src/index";
 import { IRequest } from "../../src/request";
 
-const app = bebop({
+const app = ijik({
   port: 3131,
-  appName: "example-bebop-app",
+  appName: "example-ijik-app",
 });
 
 app.addEndpoint({
