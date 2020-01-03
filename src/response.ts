@@ -1,5 +1,5 @@
 import { OutgoingHttpHeaders } from "http";
-import { HTTPStatuses } from "./httpStatuses";
+import { HTTPStatuses } from "./enums/httpStatuses";
 
 export interface IResponse {
   status: HTTPStatuses | number;

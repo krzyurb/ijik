@@ -7,7 +7,7 @@ export interface IRequestStorage {
 }
 
 export interface IRequest extends IncomingMessage {
-  query: object;
+  query: object; // TODO: wrrr
   body?: any;
   params: any;
   storage: IRequestStorage;
