@@ -2,7 +2,6 @@ import { IncomingMessage } from "http";
 import { IEndpoint } from "../endpoint";
 import { HTTPMethods } from "../enums/httpMethods";
 
-// TODO: Should omit query params, e.g. "main?foo=bar" when checking path
 function checkPath(endpoint: IEndpoint, incomingMessage: Pick<IncomingMessage, "url">): boolean {
   const parsedPatch = `^${endpoint.path.replace(/:\w+|\d+|_+/g, "(\\w+|\\d+)")}/\*$`;
   const matches = new RegExp(parsedPatch).exec(incomingMessage.url || "/");
