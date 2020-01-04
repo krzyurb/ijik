@@ -18,4 +18,6 @@ export function validateEndpoint(endpoint: IEndpoint) {
   if (!endpoint.path) {
     throw new Error("Endpoint need to have defined path");
   }
+
+  return endpoint;
 }
